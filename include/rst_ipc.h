@@ -11,7 +11,7 @@ extern "C" {
  * @brief System schedule API
  * 
  */
-rst_status rst_yield(void);
+rst_status rst_task_yield(void);
 
 /**
  * @brief Task API
@@ -25,7 +25,7 @@ typedef struct rst_task_attr{
     uint8_t priority;           // task priority
 } rst_task_attr;
 
-typedef void(*rst_task_func)(void *arg);
+typedef void (*rst_task_func)(void *arg);
 
 rst_task_id rst_task_create(rst_task_func func, void *arg, rst_task_attr *attr);
 rst_status rst_task_suspend(rst_task_id task);

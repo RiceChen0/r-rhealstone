@@ -13,7 +13,7 @@ extern "C" {
 
 typedef enum {
     RST_OK = 0,                 /**< There is no error */
-    RST_ERROR,                   /**< A generic error happens */
+    RST_ERROR,                  /**< A generic error happens */
     RST_FULL,                   /**< The resource is full */
     RST_EMPTY,                  /**< The resource is empty */
     RST_NOMEM,                  /**< No memory */
@@ -23,10 +23,6 @@ typedef enum {
 /**
  * debug API
 */
-#define RST_LOGE_EN             1
-#define RST_LOGD_EN             0
-#define RST_LOGI_EN             0
-
 #ifndef RST_PRINT
 #ifdef __RTTHREAD__
     #include <rtthread.h>
@@ -59,10 +55,15 @@ typedef enum {
 #if RST_LOGD_EN
 #define RST_LOGD(...)           RST_PRINT("[D/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
                                 RST_PRINT(__VA_ARGS__); \
-                                RST_PRINT("\n");  
+                                RST_PRINT("\n")  
 #else
 #define RST_LOGD(...)
 #endif
+
+#define RST_PRINT_TIME(message, total_time, \
+                       iterations, loop_overhead, dir_overhead ) \
+    RST_PRINT("%s - %d\n", (message), \
+      (((total_time) - (loop_overhead)) / (iterations)) - (dir_overhead))
 
 typedef uint32_t rst_time_t;
 

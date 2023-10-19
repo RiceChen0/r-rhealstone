@@ -1,5 +1,5 @@
-#ifndef __DEADLOCK_BREAK__
-#define __DEADLOCK_BREAK__
+#ifndef __INTERRUPT_LATENCY_H__
+#define __INTERRUPT_LATENCY_H__
 
 #ifdef __cplusplus
 extern "C" {

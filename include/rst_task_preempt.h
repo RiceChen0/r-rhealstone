@@ -1,5 +1,5 @@
-#ifndef __INTERRUPT_LATENCY__
-#define __INTERRUPT_LATENCY__
+#ifndef __TASK_PREEMPT_H__
+#define __TASK_PREEMPT_H__
 
 #ifdef __cplusplus
 extern "C" {

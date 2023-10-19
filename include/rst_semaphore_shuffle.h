@@ -1,5 +1,5 @@
-#ifndef __TASK_SWITCH__
-#define __TASK_SWITCH__
+#ifndef __SEMAPHORE_SHUFFLE_H__
+#define __SEMAPHORE_SHUFFLE_H__
 
 #ifdef __cplusplus
 extern "C" {

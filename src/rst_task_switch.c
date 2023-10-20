@@ -1,11 +1,10 @@
-#include "rst_def.h"
-#include "rst_cfg.h"
+#include "rst.h"
 #include "rst_ipc.h"
 #include "rst_btime.h"
 
-static uint32_t loop_overhead = 0;
-static uint32_t dir_overhead = 0;
-static uint32_t telapsed = 0;
+static float loop_overhead = 0.0;
+static float dir_overhead = 0.0;
+static float telapsed = 0.0;
 
 static uint32_t count1, count2;
 
@@ -84,11 +83,13 @@ rst_status rst_task_switch_init(void)
     {
     }
     loop_overhead = rst_benchmark_time_read();
+    RST_LOGD("RST: loop_overhead time - %f", loop_overhead);
 
     /* find overhead of rtems_task_wake_after call (no task switches) */
     rst_benchmark_time_init();
     rst_task_yield();
     dir_overhead = rst_benchmark_time_read();
+    RST_LOGD("RST: dir_overhead time - %f", dir_overhead);
 
     rst_task1 = rst_task_create(rst_task1_func, NULL, &rst_task1_attr);
     if(rst_task1 == NULL)

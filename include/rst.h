@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include "rst_def.h"
+
 #ifdef PKG_USING_R_RHEALSTONE_TASK_SWITCH
 rst_status rst_task_switch_init(void);
 #endif

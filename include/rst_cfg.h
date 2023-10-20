@@ -22,7 +22,7 @@ extern "C" {
 #endif 
 
 #ifndef RST_BENCHMARKS_COUNT
-    #define RST_BENCHMARKS_COUNT                5000
+    #define RST_BENCHMARKS_COUNT                2000
 #endif
 
 #ifdef __cplusplus

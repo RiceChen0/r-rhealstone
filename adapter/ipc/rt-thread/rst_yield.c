@@ -8,5 +8,5 @@ rst_status rst_task_yield(void)
     {
         return RST_OK;
     }
-    RST_ERROR;
+    return RST_ERROR;
 }

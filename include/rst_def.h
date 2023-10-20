@@ -11,6 +11,8 @@ extern "C" {
 #include <stdbool.h>
 #include <string.h>
 
+#include "rst_cfg.h"
+
 typedef enum {
     RST_OK = 0,                 /**< There is no error */
     RST_ERROR,                  /**< A generic error happens */
@@ -62,7 +64,7 @@ typedef enum {
 
 #define RST_PRINT_TIME(message, total_time, \
                        iterations, loop_overhead, dir_overhead ) \
-    RST_PRINT("%s - %d\n", (message), \
+    RST_PRINT("%s - %f us\n", (message), \
       (((total_time) - (loop_overhead)) / (iterations)) - (dir_overhead))
 
 typedef uint32_t rst_time_t;

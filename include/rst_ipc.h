@@ -60,7 +60,7 @@ void rst_queue_delete(rst_queue_id queue);
  * @brief Interrupt API
  * 
  */
-typedef void (*rst_isr_func)(int vector, void *param);
+typedef void (*rst_isr_func)(void *param);
 
 rst_status rst_isr_install(int vector, rst_isr_func handler, 
                            void *param, const char *name);

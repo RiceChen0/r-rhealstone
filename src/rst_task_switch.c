@@ -35,13 +35,7 @@ static void rst_task2_func(void *arg);
 
 static void rst_task1_func(void *arg)
 {
-    rst_task2 = rst_task_create(rst_task2_func, NULL, &rst_task2_attr);
-    if(rst_task2 == NULL)
-    {
-        RST_LOGE("RST: task2 create failed");
-        return;
-    }
-
+    rst_task_start(rst_task2);
     /* Yield processor so second task can startup and run */
     rst_task_yield();
 
@@ -65,7 +59,7 @@ static void rst_task2_func(void *arg)
 
     RST_PRINT_TIME(
         "R-Rhealstone: task switch time", 
-        telapsed, 
+        telapsed,                       /* Total time of all benchmarks */
         (RST_BENCHMARKS_COUNT * 2) - 1, /* ( BENCHMARKS * 2 ) - 1 total benchmarks */
         loop_overhead,                  /* Overhead of loop */
         dir_overhead                    /* Overhead of rst_task_yield directive */
@@ -95,7 +89,17 @@ rst_status rst_task_switch_init(void)
     if(rst_task1 == NULL)
     {
         RST_LOGE("RST: task1 create failed");
+        return RST_ERROR;
     }
+
+    rst_task2 = rst_task_create(rst_task2_func, NULL, &rst_task2_attr);
+    if(rst_task2 == NULL)
+    {
+        RST_LOGE("RST: task2 create failed");
+        rst_task_delete(rst_task1);
+        return RST_ERROR;
+    }
+    rst_task_start(rst_task1);
 
     return RST_OK;
 }

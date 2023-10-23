@@ -6,10 +6,14 @@ rst_task_id rst_task_create(rst_task_func func, void *arg, rst_task_attr *attr)
 {
     rt_thread_t task = NULL;
 
-    task = rt_thread_create(attr->name, func, arg, attr->stack_size, attr->priority, 20);
-    rt_thread_startup(task);
-    
+    task = rt_thread_create(attr->name, func, arg, attr->stack_size, attr->priority, 1);
     return (rst_task_id)task;
+}
+
+rst_status rst_task_start(rst_task_id task)
+{
+    rt_thread_startup(task);
+    return RST_OK;
 }
 
 rst_status rst_task_suspend(rst_task_id task)

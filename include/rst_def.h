@@ -63,9 +63,9 @@ typedef enum {
 #endif
 
 #define RST_PRINT_TIME(message, total_time, \
-                       iterations, loop_overhead, dir_overhead ) \
+                       iterations, loop_overhead, overhead) \
     RST_PRINT("%s - %f us\n", (message), \
-      (((total_time) - (loop_overhead)) / (iterations)) - (dir_overhead))
+      ((((total_time) - (loop_overhead)) / ((iterations) * 1.0)) - (overhead)));
 
 typedef uint32_t rst_time_t;
 

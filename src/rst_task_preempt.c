@@ -6,7 +6,7 @@ static float loop_overhead = 0.0;
 static float switch_overhead = 0.0;
 static float telapsed = 0.0;
 
-static uint32_t count1, count2;
+static uint32_t count1;
 
 static rst_task_id rst_task1 = NULL;
 static rst_task_id rst_task2 = NULL;
@@ -30,12 +30,11 @@ static rst_task_attr rst_task2_attr = {
 #endif
     .stack_size = RST_TASK_STACK_SIZE,
 };
-
+ 
 static void rst_task1_func(void *arg)
 {
     /* Start up task2, get preempted */
     rst_task_start(rst_task2);
-
     switch_overhead = rst_benchmark_time_read();
 
     rst_benchmark_time_init();
@@ -53,20 +52,19 @@ static void rst_task2_func(void *arg)
     rst_task_suspend(rst_task2);
 
     /* Benchmark code */
-    for(count2 = 0; count2 < RST_BENCHMARKS_COUNT - 1; count2++)
+    for(; count1 < RST_BENCHMARKS_COUNT - 1;)
     {
         rst_task_suspend(rst_task2);
     }
 
     telapsed = rst_benchmark_time_read();
 
-    RST_LOGI("telapsed: %f, loop_overhead: %f, switch_overhead: %f", telapsed, loop_overhead, switch_overhead);
     RST_PRINT_TIME(
         "R-Rhealstone: task preempt time", 
         telapsed,                       /* Total time of all benchmarks */
         RST_BENCHMARKS_COUNT - 1,       /* BENCHMARKS - 1 total benchmarks */
         loop_overhead,                  /* Overhead of loop */
-        0                 /* Overhead of task switch back to task1 */
+        switch_overhead                 /* Overhead of task switch back to task1 */
     );
 }
 
@@ -78,7 +76,6 @@ rst_status rst_task_preempt_init(void)
     {
     }
     loop_overhead = rst_benchmark_time_read();
-    RST_LOGD("RST: loop_overhead time - %f", loop_overhead);
 
     rst_task1 = rst_task_create(rst_task1_func, NULL, &rst_task1_attr);
     if(rst_task1 == NULL)

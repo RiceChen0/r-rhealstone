@@ -6,7 +6,7 @@ static float loop_overhead = 0.0;
 static float switch_overhead = 0.0;
 static float telapsed = 0.0;
 
-static uint32_t count1;
+static uint32_t count;
 
 static rst_task_id rst_task1 = NULL;
 static rst_task_id rst_task2 = NULL;
@@ -39,7 +39,7 @@ static void rst_task1_func(void *arg)
 
     rst_benchmark_time_init();
     /* Benchmark code */
-    for(count1 = 0; count1 < RST_BENCHMARKS_COUNT; count1++)
+    for(count = 0; count < RST_BENCHMARKS_COUNT; count++)
     {
         rst_task_resume(rst_task2);     /* Awaken task2, preemption occurs */
     }
@@ -52,7 +52,7 @@ static void rst_task2_func(void *arg)
     rst_task_suspend(rst_task2);
 
     /* Benchmark code */
-    for(; count1 < RST_BENCHMARKS_COUNT - 1;)
+    for(; count < RST_BENCHMARKS_COUNT - 1;)
     {
         rst_task_suspend(rst_task2);
     }
@@ -72,7 +72,7 @@ rst_status rst_task_preempt_init(void)
 {
     /* Find loop overhead */
     rst_benchmark_time_init();
-    for(count1 = 0; count1 < ((RST_BENCHMARKS_COUNT * 2) - 1); count1++)
+    for(count = 0; count < ((RST_BENCHMARKS_COUNT * 2) - 1); count++)
     {
     }
     loop_overhead = rst_benchmark_time_read();

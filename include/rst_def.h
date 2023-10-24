@@ -13,6 +13,12 @@ extern "C" {
 
 #include "rst_cfg.h"
 
+#ifdef __RTTHREAD__
+    #include <rtthread.h>
+#else
+
+#endif
+
 typedef enum {
     RST_OK = 0,                 /**< There is no error */
     RST_ERROR,                  /**< A generic error happens */
@@ -22,12 +28,17 @@ typedef enum {
     RST_INVAL,                  /**< Invalid argument */
 } rst_status;
 
+#ifdef __RTTHREAD__
+    #define RST_WAIT_FOREVER   RT_WAITING_FOREVER
+#else
+
+#endif
+
 /**
  * debug API
-*/
+ */
 #ifndef RST_PRINT
 #ifdef __RTTHREAD__
-    #include <rtthread.h>
     #define RST_PRINT           rt_kprintf
 #else
     #define RST_PRINT           printf

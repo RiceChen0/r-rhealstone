@@ -6,7 +6,7 @@ rst_sem_id rst_sem_create(uint32_t value)
 {
     rt_sem_t sem = NULL;
 
-    sem = rt_sem_create("rst", value, RT_IPC_FLAG_FIFO);
+    sem = rt_sem_create("rst", value, RT_IPC_FLAG_PRIO);
     return (rst_sem_id)sem;
 }
 

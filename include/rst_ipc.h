@@ -63,8 +63,7 @@ void rst_queue_delete(rst_queue_id queue);
  */
 typedef void (*rst_isr_func)(void *param);
 
-rst_status rst_isr_install(int vector, rst_isr_func handler, 
-                           void *param, const char *name);
+rst_status rst_isr_install(int vector, rst_isr_func handler, void *param);
 
 void rst_isr_trigger(int vector);
 

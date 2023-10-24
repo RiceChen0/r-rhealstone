@@ -17,12 +17,20 @@ extern "C" {
     #define RST_TASK_HIGHEST_PRIORITY           0
 #endif
 
+#ifndef RST_TASK_LOWEST_PRIORITY
+    #define RST_TASK_LOWEST_PRIORITY            32
+#endif
+
 #ifndef RST_TASK_STACK_SIZE
     #define RST_TASK_STACK_SIZE                 (2 * 1024)
 #endif 
 
 #ifndef RST_BENCHMARKS_COUNT
     #define RST_BENCHMARKS_COUNT                500
+#endif
+
+#ifndef RST_ISR_NUM
+    #define RST_ISR_NUM                         0
 #endif
 
 #ifdef __cplusplus

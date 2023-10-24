@@ -7,8 +7,7 @@
 #define IRQ_PIN             GET_PIN(C, 0)
 #define TRIGGER_PIN         GET_PIN(C, 1)
 
-rst_status rst_isr_install(int vector, rst_isr_func handler, 
-                           void *param, const char *name)
+rst_status rst_isr_install(int vector, rst_isr_func handler, void *param)
 {
     rt_pin_mode(TRIGGER_PIN, PIN_MODE_OUTPUT);
     rt_pin_write(TRIGGER_PIN, PIN_HIGH);
@@ -21,5 +20,5 @@ rst_status rst_isr_install(int vector, rst_isr_func handler,
 
 void rst_isr_trigger(int vector)
 {
-    rt_pin_write(TRIGGER_PIN, PIN_LOW);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
 }

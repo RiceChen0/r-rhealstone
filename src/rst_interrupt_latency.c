@@ -42,13 +42,12 @@ static void rst_task1_func(void *arg)
 
 rst_status rst_interrupt_latency_init(void)
 {
-    rst_task1 = rst_task_create(rst_task1_func, NULL, &rst_task1_attr);
+    rst_task_create(&rst_task1, rst_task1_func, NULL, &rst_task1_attr);
     if(rst_task1 == NULL)
     {
         RST_LOGE("RST: task1 create failed");
         return RST_ERROR;
     }
-    rst_task_start(rst_task1);
 
     rst_benchmark_time_init();
     rst_benchmark_time_read();

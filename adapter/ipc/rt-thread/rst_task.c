@@ -26,5 +26,9 @@ rst_status rst_task_resume(rst_task_id task)
 
 void rst_task_delete(rst_task_id task)
 {
+    if(task == NULL)
+    {
+        return;
+    }
     rt_thread_delete((rt_thread_t)task);
 }

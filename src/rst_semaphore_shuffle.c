@@ -16,7 +16,7 @@ static rst_sem_id rst_sem = NULL;
 static rst_task_attr rst_task1_attr = {
     .name = "task1",
 #if RST_BIG_NUM_HIGH_PRIORITY
-    .priority = RST_HIGHEST_PRIORITY - 1,
+    .priority = RST_TASK_HIGHEST_PRIORITY - 1,
 #else
     .priority = RST_TASK_HIGHEST_PRIORITY + 1,
 #endif
@@ -26,7 +26,7 @@ static rst_task_attr rst_task1_attr = {
 static rst_task_attr rst_task2_attr = {
     .name = "task2",
 #if RST_BIG_NUM_HIGH_PRIORITY
-    .priority = RST_HIGHEST_PRIORITY - 1,
+    .priority = RST_TASK_HIGHEST_PRIORITY - 1,
 #else
     .priority = RST_TASK_HIGHEST_PRIORITY + 1,
 #endif

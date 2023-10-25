@@ -13,8 +13,21 @@ extern "C" {
 
 #include "rst_cfg.h"
 
-#ifdef __RTTHREAD__
+#if RST_USING_RTTHREAD
     #include <rtthread.h>
+    #define RST_WAIT_FOREVER    RT_WAITING_FOREVER
+    #define RST_PRINT           rt_kprintf
+#elif RST_USING_FREERTOS
+    #include <FreeRTOS.h>
+    #include <task.h>
+    #define RST_WAIT_FOREVER    portMAX_DELAY
+    #define RST_PRINT(...)      do {                        \
+                                    taskENTER_CRITICAL();   \
+                                    printf(__VA_ARGS__);    \
+                                    taskEXIT_CRITICAL();    \
+                                } while(0);
+#elif RST_USING_LITEOS_M
+
 #else
 
 #endif
@@ -28,23 +41,9 @@ typedef enum {
     RST_INVAL,                  /**< Invalid argument */
 } rst_status;
 
-#ifdef __RTTHREAD__
-    #define RST_WAIT_FOREVER   RT_WAITING_FOREVER
-#else
-
-#endif
-
 /**
  * debug API
  */
-#ifndef RST_PRINT
-#ifdef __RTTHREAD__
-    #define RST_PRINT           rt_kprintf
-#else
-    #define RST_PRINT           printf
-#endif
-#endif
-
 #ifndef RST_PRINT_TAG
     #define RST_PRINT_TAG       "RST"
 #endif

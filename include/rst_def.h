@@ -49,32 +49,32 @@ typedef enum {
 #endif
 
 #if RST_LOGE_EN
-#define RST_LOGE(...)           RST_PRINT("\033[31;22m[E/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
-                                RST_PRINT(__VA_ARGS__); \
-                                RST_PRINT("\033[0m\n")
+    #define RST_LOGE(...)           RST_PRINT("\033[31;22m[E/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
+                                    RST_PRINT(__VA_ARGS__); \
+                                    RST_PRINT("\033[0m\r\n")
 #else
-#define RST_LOGE(...)
+    #define RST_LOGE(...)
 #endif
 
 #if RST_LOGI_EN
-#define RST_LOGI(...)           RST_PRINT("\033[32;22m[I/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
-                                RST_PRINT(__VA_ARGS__); \
-                                RST_PRINT("\033[0m\n")
+    #define RST_LOGI(...)           RST_PRINT("\033[32;22m[I/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
+                                    RST_PRINT(__VA_ARGS__); \
+                                    RST_PRINT("\033[0m\r\n")
 #else
-#define RST_LOGI(...)
+    #define RST_LOGI(...)
 #endif
 
 #if RST_LOGD_EN
-#define RST_LOGD(...)           RST_PRINT("[D/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
-                                RST_PRINT(__VA_ARGS__); \
-                                RST_PRINT("\n")  
+    #define RST_LOGD(...)           RST_PRINT("[D/%s](%s:%d) ", RST_PRINT_TAG, __FUNCTION__, __LINE__); \
+                                    RST_PRINT(__VA_ARGS__); \
+                                    RST_PRINT("\r\n")
 #else
-#define RST_LOGD(...)
+    #define RST_LOGD(...)
 #endif
 
 #define RST_PRINT_TIME(message, total_time, \
                        iterations, loop_overhead, overhead) \
-    RST_PRINT("%s - %f us\n", (message), \
+    RST_PRINT("%s - %f us\r\n", (message), \
       ((((total_time) - (loop_overhead)) / ((iterations) * 1.0)) - (overhead)));
 
 typedef uint32_t rst_time_t;

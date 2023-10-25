@@ -3,14 +3,14 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-rst_task_id rst_task_create(rst_task_func func, void *arg, rst_task_attr *attr)
+rst_status rst_task_create(rst_task_id *task, rst_task_func func,
+                           void *arg, rst_task_attr *attr)
 {
-    rst_task_id task = NULL;
-
     xTaskCreate((TaskFunction_t)func, attr->name, 
                 attr->stack_size, arg, 
-                attr->priority, &task);
-    return task;
+                attr->priority, (TaskHandle_t *)task);
+    taskYIELD();
+    return RST_OK;
 }
 
 rst_status rst_task_suspend(rst_task_id task)

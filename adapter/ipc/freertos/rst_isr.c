@@ -1,11 +1,12 @@
 #include "rst_def.h"
 #include "rst_ipc.h"
+#include "stm32f4xx.h"
 
-// #define IRQ_PIN             GET_PIN(C, 0)
-// #define TRIGGER_PIN         GET_PIN(C, 1)
+rst_isr_func rst_isr_handle;
 
 rst_status rst_isr_install(int vector, rst_isr_func handler, void *param)
 {
+    rst_isr_handle = handler;   
     return RST_OK;
 }
 

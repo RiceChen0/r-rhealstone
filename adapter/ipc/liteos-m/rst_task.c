@@ -9,11 +9,6 @@ rst_task_id rst_task_create(rst_task_func func, void *arg, rst_task_attr *attr)
     return task;
 }
 
-rst_status rst_task_start(rst_task_id task)
-{
-    return RST_OK;
-}
-
 rst_status rst_task_suspend(rst_task_id task)
 {
     return RST_OK;

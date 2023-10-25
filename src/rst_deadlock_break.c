@@ -80,6 +80,7 @@ static void rst_task1_func(void *arg)
             lock_overhead
         );
     }
+    rst_task_delete(NULL);
 }
 
 static void rst_task2_func(void *arg)
@@ -89,6 +90,7 @@ static void rst_task2_func(void *arg)
     if(rst_task1 == NULL)
     {
         RST_LOGE("RST: task1 create failed");
+        rst_task_delete(NULL);
         return;
     }
 
@@ -101,6 +103,7 @@ static void rst_task2_func(void *arg)
         /* Wake up task1, get preempted */
         rst_task_resume(rst_task1);
     }
+    rst_task_delete(NULL);
 }
 
 static void rst_task3_func(void *arg)
@@ -116,6 +119,7 @@ static void rst_task3_func(void *arg)
     if(rst_task2 == NULL)
     {
         RST_LOGE("RST: task2 create failed");
+        rst_task_delete(NULL);
         return;
     }
 
@@ -132,6 +136,7 @@ static void rst_task3_func(void *arg)
         /* Wake up task2, get preempted */
         rst_task_resume(rst_task2);
     }
+    rst_task_delete(NULL);
 }
 
 rst_status rst_deadlock_break_init(void)

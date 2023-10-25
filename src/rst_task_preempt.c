@@ -40,6 +40,7 @@ static void rst_task1_func(void *arg)
     if(rst_task2 == NULL)
     {
         RST_LOGE("RST: task2 create failed");
+        rst_task_delete(NULL);
         return;
     }
     switch_overhead = rst_benchmark_time_read();
@@ -50,6 +51,7 @@ static void rst_task1_func(void *arg)
     {
         rst_task_resume(rst_task2);     /* Awaken task2, preemption occurs */
     }
+    rst_task_delete(NULL);
 }
 
 static void rst_task2_func(void *arg)
@@ -73,6 +75,7 @@ static void rst_task2_func(void *arg)
         loop_overhead,                  /* Overhead of loop */
         switch_overhead                 /* Overhead of task switch back to task1 */
     );
+    rst_task_delete(NULL);
 }
 
 rst_status rst_task_preempt_init(void)

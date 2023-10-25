@@ -52,6 +52,7 @@ static void rst_task1_func(void *arg)
     if(rst_task2 == NULL)
     {
         RST_LOGE("RST: task2 create failed");
+        rst_task_delete(NULL);
         return;
     }
 
@@ -62,6 +63,7 @@ static void rst_task1_func(void *arg)
                        (uint32_t)sizeof(queue_buff), 
                        (rst_time_t)RST_WAIT_FOREVER);
     }
+    rst_task_delete(NULL);
 }
 
 static void rst_task2_func(void *arg)
@@ -88,6 +90,7 @@ static void rst_task2_func(void *arg)
         loop_overhead,                  /* Overhead of loop */
         receive_overhead                /* Overhead of recieve call and task switch */
     );
+    rst_task_delete(NULL);
 }
 
 rst_status rst_message_latency_init(void)

@@ -39,6 +39,7 @@ static void rst_task1_func(void *arg)
     if(rst_task2 == NULL)
     {
         RST_LOGE("RST: task2 create failed");
+        rst_task_delete(NULL);
         return;
     }
     /* Yield processor so second task can startup and run */
@@ -48,6 +49,7 @@ static void rst_task1_func(void *arg)
     {
         rst_task_yield();
     }
+    rst_task_delete(NULL);
 }
 
 static void rst_task2_func(void *arg)
@@ -69,6 +71,7 @@ static void rst_task2_func(void *arg)
         loop_overhead,                  /* Overhead of loop */
         dir_overhead                    /* Overhead of rst_task_yield directive */
     );
+    rst_task_delete(NULL);
 }
 
 rst_status rst_task_switch_init(void)

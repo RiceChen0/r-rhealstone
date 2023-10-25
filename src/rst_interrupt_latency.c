@@ -38,6 +38,7 @@ static void rst_task1_func(void *arg)
         timer_overhead,
         0
     );
+    rst_task_delete(NULL);
 }
 
 rst_status rst_interrupt_latency_init(void)

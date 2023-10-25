@@ -42,6 +42,7 @@ static void rst_task1_func(void *arg)
     if(rst_task2 == NULL)
     {
         RST_LOGE("RST: task2 create failed");
+        rst_task_delete(NULL);
         return;
     }
     rst_task_yield();
@@ -56,7 +57,7 @@ static void rst_task1_func(void *arg)
             rst_task_yield();
         }
     }
-  
+    rst_task_delete(NULL);
 }
 
 static void rst_task2_func(void *arg)
@@ -89,6 +90,7 @@ static void rst_task2_func(void *arg)
             0
         );
     }
+    rst_task_delete(NULL);
 }
 
 rst_status rst_semaphore_shuffle_init(void)

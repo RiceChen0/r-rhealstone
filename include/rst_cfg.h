@@ -26,7 +26,7 @@ extern "C" {
 #endif 
 
 #ifndef RST_BENCHMARKS_COUNT
-    #define RST_BENCHMARKS_COUNT                2000
+    #define RST_BENCHMARKS_COUNT                500
 #endif
 
 #ifndef RST_ISR_NUM

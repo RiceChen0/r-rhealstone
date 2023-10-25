@@ -85,13 +85,19 @@ static void rst_task1_func(void *arg)
 static void rst_task2_func(void *arg)
 {
     /* Start up task1, get preempted */
-    rst_task_start(rst_task1);
+    rst_task_create(&rst_task1, rst_task1_func, NULL, &rst_task1_attr);
+    if(rst_task1 == NULL)
+    {
+        RST_LOGE("RST: task1 create failed");
+        return;
+    }
 
     /* Benchmark code */
     for( ; count < RST_BENCHMARKS_COUNT; )
     {
         /* Suspend self, go to task1 */
         rst_task_suspend(rst_task2);
+
         /* Wake up task1, get preempted */
         rst_task_resume(rst_task1);
     }
@@ -106,7 +112,12 @@ static void rst_task3_func(void *arg)
     }
 
     /* Start up task2, get preempted */
-    rst_task_start(rst_task2);
+    rst_task_create(&rst_task2, rst_task2_func, NULL, &rst_task2_attr);
+    if(rst_task2 == NULL)
+    {
+        RST_LOGE("RST: task2 create failed");
+        return;
+    }
 
     for( ; count < RST_BENCHMARKS_COUNT; )
     {
@@ -141,35 +152,14 @@ rst_status rst_deadlock_break_init(void)
 __RESTART:
     sem_exe = !sem_exe;
 
-    rst_task1 = rst_task_create(rst_task1_func, NULL, &rst_task1_attr);
-    if(rst_task1 == NULL)
-    {
-        RST_LOGE("RST: task1 create failed");
-        rst_sem_delete(rst_sem);
-        return RST_ERROR;
-    }
-
-    rst_task2 = rst_task_create(rst_task2_func, NULL, &rst_task2_attr);
-    if(rst_task2 == NULL)
-    {
-        RST_LOGE("RST: task2 create failed");
-        rst_sem_delete(rst_sem);
-        rst_task_delete(rst_task1);
-        return RST_ERROR;
-    }
-
-    rst_task3 = rst_task_create(rst_task3_func, NULL, &rst_task3_attr);
+    /* Get time of benchmark with no semaphores involved, i.e. find overhead */
+    rst_task_create(&rst_task3, rst_task3_func, NULL, &rst_task3_attr);
     if(rst_task3 == NULL)
     {
         RST_LOGE("RST: task3 create failed");
         rst_sem_delete(rst_sem);
-        rst_task_delete(rst_task1);
-        rst_task_delete(rst_task2);
         return RST_ERROR;
     }
-
-    /* Get time of benchmark with no semaphores involved, i.e. find overhead */
-    rst_task_start(rst_task3);
 
     /* Get time of benchmark with semaphores */
     if(sem_exe == 0)
@@ -177,5 +167,6 @@ __RESTART:
         goto __RESTART;
     }
 
+    rst_sem_delete(rst_sem);
     return RST_OK;
 }

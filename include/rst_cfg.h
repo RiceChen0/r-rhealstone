@@ -9,28 +9,63 @@ extern "C" {
 #define RST_LOGD_EN                             1
 #define RST_LOGI_EN                             1
 
-#ifndef RST_BIG_NUM_HIGH_PRIORITY
+#define RST_USING_RTTHREAD                      0
+#define RST_USING_FREERTOS                      1
+#define RST_USING_LITEOS_M                      0
+
+#if RST_USING_RTTHREAD
     #define RST_BIG_NUM_HIGH_PRIORITY           0
-#endif
 
-#ifndef RST_TASK_HIGHEST_PRIORITY
     #define RST_TASK_HIGHEST_PRIORITY           0
-#endif
 
-#ifndef RST_TASK_LOWEST_PRIORITY
     #define RST_TASK_LOWEST_PRIORITY            32
-#endif
 
-#ifndef RST_TASK_STACK_SIZE
-    #define RST_TASK_STACK_SIZE                 (2 * 1024)
-#endif 
+    #define RST_TASK_STACK_SIZE                 (512)
 
-#ifndef RST_BENCHMARKS_COUNT
     #define RST_BENCHMARKS_COUNT                500
+
+    #define RST_ISR_NUM                         0
+#elif RST_USING_FREERTOS
+    #define RST_BIG_NUM_HIGH_PRIORITY           1
+
+    #define RST_TASK_HIGHEST_PRIORITY           56
+
+    #define RST_TASK_LOWEST_PRIORITY            0
+
+    #define RST_TASK_STACK_SIZE                 (512)
+
+    #define RST_BENCHMARKS_COUNT                500
+
+    #define RST_ISR_NUM                         0
+#elif RST_USING_LITEOS_M
+
+#else
+
 #endif
 
-#ifndef RST_ISR_NUM
-    #define RST_ISR_NUM                         0
+
+#ifndef PKG_USING_R_RHEALSTONE_TASK_SWITCH
+    #define PKG_USING_R_RHEALSTONE_TASK_SWITCH
+#endif
+
+#ifndef PKG_USING_R_RHEALSTONE_TASK_PREEMPT
+    #define PKG_USING_R_RHEALSTONE_TASK_PREEMPT
+#endif
+
+#ifndef PKG_USING_R_RHEALSTONE_SEMAPHORE_SHUFFLE
+    #define PKG_USING_R_RHEALSTONE_SEMAPHORE_SHUFFLE
+#endif
+
+#ifndef PKG_USING_R_RHEALSTONE_MESSAGE_LATENCY
+    #define PKG_USING_R_RHEALSTONE_MESSAGE_LATENCY
+#endif
+
+#ifndef PKG_USING_R_RHEALSTONE_INTERRUPT_LATENCY
+    #define PKG_USING_R_RHEALSTONE_INTERRUPT_LATENCY
+#endif
+
+#ifndef PKG_USING_R_RHEALSTONE_DEADLOCK_BREAK
+    #define PKG_USING_R_RHEALSTONE_DEADLOCK_BREAK
 #endif
 
 #ifdef __cplusplus

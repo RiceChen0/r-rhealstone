@@ -9,8 +9,8 @@ extern "C" {
 #define RST_LOGD_EN                             1
 #define RST_LOGI_EN                             1
 
-#define RST_USING_RTTHREAD                      0
-#define RST_USING_FREERTOS                      1
+#define RST_USING_RTTHREAD                      1
+#define RST_USING_FREERTOS                      0
 #define RST_USING_LITEOS_M                      0
 
 #if RST_USING_RTTHREAD
@@ -20,7 +20,7 @@ extern "C" {
 
     #define RST_TASK_LOWEST_PRIORITY            32
 
-    #define RST_TASK_STACK_SIZE                 (512)
+    #define RST_TASK_STACK_SIZE                 (1024)
 
     #define RST_BENCHMARKS_COUNT                500
 

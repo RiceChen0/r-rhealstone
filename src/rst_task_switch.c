@@ -35,7 +35,12 @@ static void rst_task2_func(void *arg);
 
 static void rst_task1_func(void *arg)
 {
-    rst_task_start(rst_task2);
+    rst_task_create(&rst_task2, rst_task2_func, NULL, &rst_task2_attr);
+    if(rst_task2 == NULL)
+    {
+        RST_LOGE("RST: task2 create failed");
+        return;
+    }
     /* Yield processor so second task can startup and run */
     rst_task_yield();
 
@@ -83,21 +88,12 @@ rst_status rst_task_switch_init(void)
     rst_task_yield();
     dir_overhead = rst_benchmark_time_read();;
 
-    rst_task1 = rst_task_create(rst_task1_func, NULL, &rst_task1_attr);
+    rst_task_create(&rst_task1, rst_task1_func, NULL, &rst_task1_attr);
     if(rst_task1 == NULL)
     {
         RST_LOGE("RST: task1 create failed");
         return RST_ERROR;
     }
-
-    rst_task2 = rst_task_create(rst_task2_func, NULL, &rst_task2_attr);
-    if(rst_task2 == NULL)
-    {
-        RST_LOGE("RST: task2 create failed");
-        rst_task_delete(rst_task1);
-        return RST_ERROR;
-    }
-    rst_task_start(rst_task1);
 
     return RST_OK;
 }

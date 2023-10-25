@@ -32,7 +32,7 @@ extern "C" {
 
     #define RST_TASK_LOWEST_PRIORITY            0
 
-    #define RST_TASK_STACK_SIZE                 (512)
+    #define RST_TASK_STACK_SIZE                 (128)
 
     #define RST_BENCHMARKS_COUNT                500
 

@@ -4,8 +4,8 @@
 #include "rtdevice.h"
 #include "board.h"
 
-#define IRQ_PIN             GET_PIN(C, 0)
-#define TRIGGER_PIN         GET_PIN(C, 1)
+#define IRQ_PIN             GET_PIN(C, 1)
+#define TRIGGER_PIN         GET_PIN(C, 0)
 
 rst_status rst_isr_install(int vector, rst_isr_func handler, void *param)
 {

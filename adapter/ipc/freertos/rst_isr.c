@@ -12,5 +12,5 @@ rst_status rst_isr_install(int vector, rst_isr_func handler, void *param)
 
 void rst_isr_trigger(int vector)
 {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
 }

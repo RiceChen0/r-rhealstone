@@ -27,7 +27,9 @@ extern "C" {
                                     taskEXIT_CRITICAL();    \
                                 } while(0);
 #elif RST_USING_LITEOS_M
-
+    #include <los_task.h>
+    #define RST_WAIT_FOREVER    LOS_WAIT_FOREVER
+    #define RST_PRINT           printf
 #else
 
 #endif

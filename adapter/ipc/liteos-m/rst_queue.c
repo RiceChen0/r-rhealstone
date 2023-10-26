@@ -13,13 +13,13 @@ rst_queue_id rst_queue_create(int size, int count)
 rst_status rst_queue_send(rst_queue_id queue, const void *msg,
                           uint32_t size, rst_time_t timeout)
 {
-    LOS_QueueWriteCopy((uint32_t)queue, msg, size, timeout);
+    LOS_QueueWriteCopy((uint32_t)queue, (void *)msg, size, timeout);
     return RST_ERROR;
 }
 
 rst_status rst_queue_recv(rst_queue_id queue, void *msg, uint32_t size)
 {
-    LOS_QueueReadCopy((uint32_t)queue, msg, size, LOS_WAIT_FOREVER);
+    LOS_QueueReadCopy((uint32_t)queue, msg, &size, LOS_WAIT_FOREVER);
     return RST_ERROR;
 }
 

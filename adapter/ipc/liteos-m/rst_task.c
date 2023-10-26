@@ -8,9 +8,8 @@ rst_status rst_task_create(rst_task_id *task, rst_task_func func,
     TSK_INIT_PARAM_S param = {
         .pfnTaskEntry = (TSK_ENTRY_FUNC)func,
         .usTaskPrio = attr->priority,
-        .uwArg = arg,
+        .uwArg = (UINT32)arg,
         .uwStackSize = attr->stack_size,
-        .stackAddr = NULL,
         .pcName = attr->name
     };
 
@@ -32,5 +31,9 @@ rst_status rst_task_resume(rst_task_id task)
 
 void rst_task_delete(rst_task_id task)
 {
+    if(task == NULL) 
+    {
+        return;
+    }
     LOS_TaskDelete((uint32_t)task);
 }

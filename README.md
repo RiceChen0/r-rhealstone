@@ -16,3 +16,7 @@ Rhealstone指标是一组基准，旨在为不同系统中的实时性能提供�
 概述 Rhealstone 基准的原始提案可在此处找到。
 
 [FreeRTOS](https://timsengineeringblog.weebly.com/masters-thesis.html)可以看到其他一些实现。
+
+#### RT-THREAD测试结论：
+
+![RT-THREAD测试结论](https://github.com/RiceChen0/r-rhealstone/blob/main/pic/rtthread.png)

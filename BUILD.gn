@@ -1,0 +1,25 @@
+import("//kernel/liteos_m/liteos.gni")
+
+module_name = get_path_info(rebase_path("."), "name")
+
+kernel_module(module_name) {
+  sources = [
+    "adapter/ipc/liteos-m/rst_yield.c",
+    "adapter/ipc/liteos-m/rst_task.c",
+    "adapter/ipc/liteos-m/rst_sem.c",
+    "adapter/ipc/liteos-m/rst_queue.c",
+    "adapter/ipc/liteos-m/rst_isr.c",
+  ]
+
+  sources += [ "adapter/btime/stm32f401/rst_btime.c" ]
+  sources += [ 
+    "src/rst_task_switch.c",
+    "src/rst_task_preempt.c",
+    "src/rst_semaphore_shuffle.c",
+    "src/rst_message_latency.c",
+    "src/rst_interrupt_latency.c",
+    "src/rst_deadlock_break.c",
+  ]
+
+  include_dirs = [ "include" ]
+}

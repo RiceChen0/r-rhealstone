@@ -89,7 +89,7 @@ rst_status rst_task_switch_init(void)
     /* find overhead of rtems_task_wake_after call (no task switches) */
     rst_benchmark_time_init();
     rst_task_yield();
-    dir_overhead = rst_benchmark_time_read();;
+    dir_overhead = rst_benchmark_time_read() / 2;
 
     rst_task_create(&rst_task1, rst_task1_func, NULL, &rst_task1_attr);
     if(rst_task1 == NULL)

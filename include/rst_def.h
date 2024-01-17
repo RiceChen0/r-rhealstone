@@ -30,6 +30,10 @@ extern "C" {
     #include <los_task.h>
     #define RST_WAIT_FOREVER    LOS_WAIT_FOREVER
     #define RST_PRINT           printf
+#elif RST_USING_TOBUDOS
+    #include <tos_k.h>
+    #define RST_WAIT_FOREVER    TOS_TIME_FOREVER
+    #define RST_PRINT           printf
 #else
 
 #endif

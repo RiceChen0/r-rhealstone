@@ -9,9 +9,10 @@ extern "C" {
 #define RST_LOGD_EN                             1
 #define RST_LOGI_EN                             1
 
-#define RST_USING_RTTHREAD                      1
+#define RST_USING_RTTHREAD                      0
 #define RST_USING_FREERTOS                      0
 #define RST_USING_LITEOS_M                      0
+#define RST_USING_TOBUDOS                       1
 
 #if RST_USING_RTTHREAD
     #define RST_BIG_NUM_HIGH_PRIORITY           0
@@ -43,6 +44,19 @@ extern "C" {
     #define RST_TASK_HIGHEST_PRIORITY           0
 
     #define RST_TASK_LOWEST_PRIORITY            31
+
+    #define RST_TASK_STACK_SIZE                 (512)
+
+    #define RST_BENCHMARKS_COUNT                500
+
+    #define RST_ISR_NUM                         0
+#elif RST_USING_TOBUDOS
+    #include "tos_config.h"
+    #define RST_BIG_NUM_HIGH_PRIORITY           0
+
+    #define RST_TASK_HIGHEST_PRIORITY           0
+
+    #define RST_TASK_LOWEST_PRIORITY            TOS_CFG_TASK_PRIO_MAX
 
     #define RST_TASK_STACK_SIZE                 (512)
 
